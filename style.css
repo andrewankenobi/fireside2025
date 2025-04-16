@@ -1,0 +1,320 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden; /* Prevent vertical scroll on body */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* Modern font stack */
+    background-color: #121212; /* Dark background for the body */
+    color: #e0e0e0; /* Light default text color */
+}
+
+.card-container {
+    display: flex;
+    overflow-x: scroll; /* Enable horizontal scrolling */
+    overflow-y: hidden; /* Prevent vertical scrolling on container */
+    width: 100%;
+    height: 100%;
+    scroll-snap-type: x mandatory; /* Enable snap scrolling on the X axis */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+.card {
+    flex: 0 0 100%; /* Make each card take full container width */
+    width: 100%;
+    height: 100%;
+    scroll-snap-align: start; /* Snap to the start of each card */
+    /* Removed flex centering to allow internal structure */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    overflow-y: auto; /* Allow vertical scrolling WITHIN a card if content exceeds height */
+    padding: 5vh 5vw; /* Use viewport units for padding */
+    background-color: #1e1e1e; /* Dark background for cards */
+    border-radius: 15px; /* Rounded corners for cards */
+    margin: 0 10px; /* Add some space between cards visually if needed, adjust container padding if you use this */
+    /* Optional: Add a subtle shadow for depth, though less noticeable in full screen */
+    /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); */
+}
+
+/* Adjust margin for first and last card if margin is used */
+.card:first-child {
+    margin-left: 0;
+}
+.card:last-child {
+    margin-right: 0;
+    border-right: none; /* Remove border explicitly */
+}
+
+/* Remove the alternating colors and borders */
+/*
+.card:nth-child(odd) {
+    background-color: #f0f0f0;
+}
+.card:nth-child(even) {
+    background-color: #e8e8e8;
+}
+.card {
+    border-right: 1px solid #ccc;
+}
+*/
+
+/* Wrapper for content inside the card for max-width and centering */
+.card-content-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    height: 100%; /* Try to fill height */
+    display: flex;
+    flex-direction: column; /* Stack titles and subcard area vertically */
+    justify-content: center; /* Center title block & subcard area vertically */
+    align-items: center; /* Center title block & subcard area horizontally */
+    padding-top: 5vh; /* Keep top padding */
+    gap: 30px; /* Add gap between title block and subcard area */
+}
+
+/* New container for the subcards */
+.subcard-area {
+    display: flex;
+    flex-wrap: wrap; /* Allow subcards to wrap */
+    justify-content: center; /* Center subcards */
+    align-items: flex-start; /* Align tops of subcards in a row */
+    gap: 20px; /* Gap between subcards */
+    width: 100%; /* Take full width of the wrapper */
+    padding: 0 10px; /* Add slight horizontal padding if needed */
+}
+
+/* Basic styling for content within cards (adjust as needed) */
+.card h1 {
+    font-size: 3em; /* Reverted size */
+    margin-bottom: 20px; /* Reverted margin */
+    color: #ffffff; /* Bright white for headings */
+    text-align: center; /* Center main titles */
+}
+
+.card h2 {
+    font-size: 1.2em; /* Reverted size */
+    color: #888; /* Dim color for subheadings/lesson numbers */
+    text-transform: uppercase;
+    letter-spacing: 1px; /* Reverted spacing */
+    text-align: center;
+    margin-bottom: 2px; /* FURTHER REDUCED margin below H2 */
+    /* font-weight: normal; Removed lighter weight */
+}
+
+.card h3 {
+    font-size: 1.8em;
+    color: #eee;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.card p {
+    font-size: 1.2em;
+    max-width: 800px;
+    text-align: left; /* Left-align paragraphs for readability */
+    line-height: 1.7;
+    color: #b0b0b0; /* Slightly dimmer light color for paragraphs */
+    margin: 0 auto 15px auto; /* Center paragraph block */
+    font-family: "Special Gothic", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* Apply Special Gothic */
+}
+
+/* Specific styles for richer content */
+.story-quote {
+    font-style: italic;
+    border-left: 3px solid #444;
+    padding-left: 20px;
+    margin: 25px auto;
+    max-width: 700px;
+    color: #ccc;
+    font-size: 1.1em;
+}
+
+.lesson-highlight {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 30px auto;
+    max-width: 750px;
+}
+
+.lesson-highlight strong {
+    color: #fff;
+}
+
+.reflection-prompt {
+    font-weight: bold;
+    color: #ddd;
+    text-align: center;
+    margin-top: 40px;
+    font-size: 1.1em;
+}
+
+.relevance {
+    font-size: 0.9em;
+    color: #888;
+    text-align: center;
+    margin: 10px auto 20px auto;
+    max-width: 700px;
+}
+
+/* Navigation Dots Styling */
+.card-nav {
+    position: fixed;
+    bottom: 20px; /* Position near the bottom */
+    left: 50%;
+    transform: translateX(-50%); /* Center the container */
+    display: flex;
+    gap: 10px; /* Space between dots */
+    z-index: 10; /* Ensure it's above the cards */
+}
+
+.nav-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%; /* Make them circles */
+    background-color: #555; /* Inactive dot color */
+    opacity: 0.6;
+    cursor: pointer; /* Indicate they are clickable (if JS added) */
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.nav-dot.active {
+    background-color: #ffffff; /* Active dot color */
+    opacity: 1;
+}
+
+/* Optional: Hover effect */
+.nav-dot:not(.active):hover {
+    opacity: 0.8;
+}
+
+/* Subcard Styling */
+.sub-card {
+    background-color: #2a2a2e; /* Slightly lighter dark grey */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px 25px;
+    margin: 10px; /* Adjust margin for flex layout */
+    max-width: 400px; /* Set a max-width for cards to fit side-by-side */
+    min-width: 280px; /* Prevent cards from becoming too narrow */
+    flex-grow: 1; /* Allow cards to grow */
+    flex-basis: 300px; /* Base width before growing/shrinking */
+    border: 1px solid #38383f; /* Subtle border */
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+    transition: transform 0.2s ease-in-out; /* Smooth transition for hover */
+}
+
+/* Add a subtle hover effect */
+.sub-card:hover {
+    transform: scale(1.02); /* Slightly enlarge on hover */
+}
+
+/* Specific style for Story subcards */
+.story-sub-card {
+    background-color: #3a4f6a; /* Lighter/softer desaturated blue */
+    border-color: #4a6182;
+    transform: rotate(-1deg); /* Slight rotation */
+}
+
+.story-sub-card:hover {
+    transform: scale(1.02) rotate(-1deg);
+}
+
+/* Specific style for Question subcards */
+.question-sub-card {
+    background-color: #484c54; /* Lighter grey */
+    border: 1px solid #5a5f66;
+    border-color: #4a4f54;
+    transform: rotate(1deg); /* Opposite rotation */
+}
+
+.question-sub-card:hover {
+    transform: scale(1.02) rotate(1deg);
+}
+
+/* Specific style for Quote subcards */
+.quote-sub-card {
+    background-color: #fffacd; /* lemonchiffon - pastel yellow */
+    border: 1px solid #fad7a0; /* Light orange/gold border */
+    color: #333; /* Dark text for contrast */
+    transform: rotate(0deg); /* No rotation for quotes */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4); /* Slightly stronger shadow? */
+}
+
+.quote-sub-card:hover {
+     transform: scale(1.03); /* Slightly more pop on hover */
+}
+
+/* Remove the previous connector style */
+/*
+.subcard-connector {
+    width: 2px; 
+    align-self: stretch; 
+    background-image: linear-gradient(to bottom, #666 50%, transparent 50%); 
+    background-size: 2px 8px; 
+    background-repeat: repeat-y;
+    margin: 10px 0; 
+    flex-shrink: 0; 
+    opacity: 0.4;
+}
+*/
+
+/* NEW: Style for subcards that should connect to the next */
+.connect-next {
+    border-bottom: 2px dashed rgba(100, 100, 100, 0.6); /* Dashed line at the bottom */
+    padding-bottom: 25px; /* Add extra padding to accommodate the border visually */
+    margin-bottom: 25px; /* Add extra margin to create space for the line */
+}
+
+.quote-sub-card p {
+    color: #222; /* Ensure dark text inside */
+    font-style: italic;
+    font-size: 1.15em;
+    text-align: center;
+    max-width: 90%; /* Allow text to fill more */
+    margin: 10px auto;
+}
+
+/* Adjust default paragraph margin when inside a subcard */
+.sub-card p {
+    margin-bottom: 10px;
+    max-width: 100%; /* Allow text to fill subcard */
+    color: #d0d0d0; /* Slightly brighter text in subcards */
+}
+
+.sub-card p:last-child {
+    margin-bottom: 0;
+}
+
+.sub-card h3 {
+     font-size: 1.4em;
+     color: #fff;
+     margin-top: 0;
+     margin-bottom: 15px;
+     text-align: left;
+}
+
+/* Ensure reflection prompts are styled appropriately within subcards */
+.question-sub-card .reflection-prompt {
+    font-weight: bold;
+    color: #f0f0f0; /* Even brighter for prompts */
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 0;
+    font-size: 1.1em;
+}
+
+/* Style relevance text within question subcards */
+.question-sub-card .relevance {
+    font-size: 0.9em;
+    color: #aaa;
+    text-align: center;
+    margin: 15px auto 0 auto;
+    max-width: 90%;
+}
